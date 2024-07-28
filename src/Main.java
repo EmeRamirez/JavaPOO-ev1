@@ -11,24 +11,32 @@ public class Main {
         System.out.println("Ingrese su nombre:");
         String nombre = scanner.nextLine();
 
-        System.out.println("¿Desea ingresar un saldo inicial? (si/no)");
-        String respuesta = scanner.nextLine().toLowerCase();
-
         int numeroCuenta = 10000000 + random.nextInt(90000000);
         CuentaCorriente cuenta;
 
-        if ("si".equals(respuesta)) {
-            System.out.println("Ingrese su saldo inicial:");
-            while (!scanner.hasNextInt()) {
-                System.out.println("Por favor, ingrese un número válido.");
-                scanner.next();
+        String respuesta;
+
+        do {
+            System.out.println("¿Desea ingresar un saldo inicial? (si/no)");
+            respuesta = scanner.nextLine().toLowerCase();
+            if ("si".equals(respuesta)) {
+                System.out.println("Ingrese su saldo inicial:");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Por favor, ingrese un número válido.");
+                    scanner.next();
+                }
+                int saldoInicial = scanner.nextInt();
+                scanner.nextLine();
+                cuenta = new CuentaCorriente(numeroCuenta, nombre, saldoInicial);
+            } else if ("no".equals(respuesta)) {
+                cuenta = new CuentaCorriente(numeroCuenta, nombre);
+            } else {
+                System.out.println("Ingrese una respuesta válida.");
+                cuenta = null; // Inicializar cuenta en caso de respuesta inválida
             }
-            int saldoInicial = scanner.nextInt();
-            scanner.nextLine();
-            cuenta = new CuentaCorriente(numeroCuenta, nombre, saldoInicial);
-        } else {
-            cuenta = new CuentaCorriente(numeroCuenta, nombre);
-        }
+        } while (cuenta == null);
+
+
 
         System.out.println("Cuenta creada exitosamente con número de cuenta: " + cuenta.getNroCuenta());
         int opcion;
