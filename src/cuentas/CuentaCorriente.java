@@ -69,6 +69,10 @@ public class CuentaCorriente {
 
     public void girarMonto(Integer cant) {
         System.out.println("\nGIRO Recibido: $" + cant);
+        if (cant <= 0) {
+            System.out.println("El monto a girar debe ser positivo.");
+            return;
+        }
         if (saldo >= cant) {
             Integer nvoSaldo = saldo - cant;
             setSaldo(nvoSaldo);
