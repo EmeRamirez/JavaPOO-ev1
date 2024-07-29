@@ -8,8 +8,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         System.out.println("Bienvenido a Blubank");
-        System.out.println("Ingrese su nombre:");
-        String nombre = scanner.nextLine();
+        String nombre;
+        do {
+            System.out.println("Ingrese su nombre:");
+            nombre = scanner.nextLine();
+            if (nombre.trim().isEmpty()) {
+                System.out.println("El nombre no puede estar vacío o ser solo espacios en blanco. Por favor, ingrese un nombre válido.");
+            }
+        } while (nombre.trim().isEmpty());
 
         int numeroCuenta = 10000000 + random.nextInt(90000000);
         CuentaCorriente cuenta;
@@ -32,7 +38,7 @@ public class Main {
                 cuenta = new CuentaCorriente(numeroCuenta, nombre);
             } else {
                 System.out.println("Ingrese una respuesta válida.");
-                cuenta = null; // Inicializar cuenta en caso de respuesta inválida
+                cuenta = null;
             }
         } while (cuenta == null);
 
@@ -54,20 +60,28 @@ public class Main {
             scanner.nextLine();
 
             switch (opcion) {
-                case 1 -> {
+                case 1 : {
                     System.out.println("Ingrese la cantidad a abonar:");
                     int montoAbonar = scanner.nextInt();
                     scanner.nextLine();
                     cuenta.abonarMonto(montoAbonar);
+                    break;
                 }
-                case 2 -> {
+
+                case 2 : {
                     System.out.println("Ingrese la cantidad a girar:");
                     int montoGirar = scanner.nextInt();
                     scanner.nextLine();
                     cuenta.girarMonto(montoGirar);
+                    break;
                 }
-                case 3 -> System.out.println("Gracias " + cuenta.getTitular() + " por usar Blubank ¡Hasta pronto!");
-                default -> System.out.println("Opción no válida, por favor ingrese 1, 2 o 3.");
+
+            case 3: {System.out.println("Gracias " + cuenta.getTitular() + " por usar Blubank ¡Hasta pronto!");
+                break;
+            }
+                default: {System.out.println("Opción no válida, por favor ingrese 1, 2 o 3.");
+                    break;
+                }
             }
         } while (opcion != 3);
 
